@@ -20,6 +20,7 @@ RUN npm install grunt-cli && \
 ADD package.json /opt/
 RUN cd /opt && npm install
 
+RUN apt-get -y install nodejs-legacy && npm install -g galenframework-cli
 
 RUN groupadd --gid 503 jenkins ; \
     useradd -ms /bin/bash -g jenkins --uid 4211 jenkins
