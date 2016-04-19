@@ -2,7 +2,7 @@ FROM debian:jessie
 MAINTAINER GGS Team WDP <wdp-php@goodgamestudios.com>
 
 RUN apt-get update && \
-    apt-get install -y gcc ant ant-contrib libpng12-dev wget git bzip2 && \
+    apt-get install -y gcc ant ant-contrib libpng12-dev wget git bzip2 unzip curl && \
     apt-get clean
 
 WORKDIR /opt
@@ -25,5 +25,9 @@ RUN apt-get -y install nodejs-legacy && npm install -g galenframework-cli
 RUN groupadd --gid 503 jenkins ; \
     useradd -ms /bin/bash -g jenkins --uid 4211 jenkins
 RUN chown -R jenkins:jenkins /home/jenkins
+
+RUN curl -o /var/tmp/BrowserStackLocal.zip https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip && \
+    cd /opt && unzip /var/tmp/BrowserStackLocal.zip && \
+    chown jenkins:jenkins /opt/BrowserStackLocal
 
 WORKDIR /home/jenkins
